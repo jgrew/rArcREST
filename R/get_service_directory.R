@@ -1,3 +1,12 @@
+#' Get available services from arcigs directory
+#'
+#' @description
+#' \code{get_service_directory} retrieves available feature services from a directory url.
+#'
+#' @param url Required. The url the services will be retrieved from.
+#'
+#' @importFrom magrittr "%>%"
+
 get_service_directory <- function(url) {
 
   if (check_token() == FALSE) {
