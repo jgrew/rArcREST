@@ -1,10 +1,14 @@
-
+#' Get a token from arcgis.com
+#'
+#' @description
+#' \code{get_token} retrieves a token from arcgis.com with the supplied username and password and stores them in \code{options}.
+#'
+#' @param token_url Optional. The url the token will be retrieved from.
+#'
 #' @importFrom magrittr "%>%"
 
-get_token <-  function() {
+get_token <-  function(token_url = 'https://www.arcgis.com/sharing/rest/generateToken') {
   ua <- httr::user_agent("http://github.com/jgrew/rArcREST")
-
-  token_url <- 'https://www.arcgis.com/sharing/rest/generateToken'
 
   username <- getPass::getPass('Enter username: ')
   password <- getPass::getPass('Enter password: ')
