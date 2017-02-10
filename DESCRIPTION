@@ -1,0 +1,17 @@
+Package: rArcREST
+Type: Package
+Title: Work With ESRI REST API
+Version: 0.1.0
+Author: person("Justin", "Grewal", email = "justin.grewal@ocpw.ocgov.com", role = c("aut", "cre"))
+Description: Tools to work with the ESRI REST API
+License: GPL-2
+Imports:
+    readr,
+    dplyr,
+    tidyr,
+    httr,
+    stringr,
+    jsonlite,
+    magrittr,
+    getPass
+LazyData: TRUE
