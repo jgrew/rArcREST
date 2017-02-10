@@ -1,21 +1,18 @@
+get_service_directory <- function(url) {
 
-#' @importFrom magrittr "%>%"
+  if (check_token() == FALSE) {
+    get_token()
+  }
 
-get_token <-  function() {
+  token = getOption('rArcREST.token')
+
   ua <- httr::user_agent("http://github.com/jgrew/rArcREST")
 
-  token_url <- 'https://www.arcgis.com/sharing/rest/generateToken'
-
-  username <- getPass::getPass('Enter username: ')
-  password <- getPass::getPass('Enter password: ')
-
   response <- httr::POST(
-    token_url,
+    url,
     query = list(
-      password = password,
-      username = username,
+      token = token,
       referer = 'http://github.com/jgrew/rArcREST',
-      expiration = 60,
       f = 'json'
     ),
     ua,
@@ -25,7 +22,7 @@ get_token <-  function() {
   if (httr::status_code(response) != 200) {
     stop(
       sprintf(
-        'API request failed [%s]',
+        'API service directory request failed [%s]',
         httr::status_code(response)
       )
     )
@@ -45,11 +42,10 @@ get_token <-  function() {
       call. = FALSE
     )
   } else {
-    options(
-      rArcREST.token = parsed$token,
-      rArcREST.expires = parsed$expires
-    )
+    directory <- parsed  %>%
+      .$services %>%
+      dplyr::tbl_df()
   }
 
-  return(invisible(TRUE))
+  return(directory)
 }
